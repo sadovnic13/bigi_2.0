@@ -5,7 +5,7 @@ const double fontSize40 = 40;
 
 const double elevation0 = 0;
 
-const double borderRadius10 = 10;
+const double cardBorderRadius = 10;
 
 const double litleiconsize = 40;
 const double mediumiconsize = 50;

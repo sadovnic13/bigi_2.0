@@ -15,7 +15,22 @@ final darkTheme = ThemeData(
       titleMedium: TextStyle(
         fontFamily: fontFamilyMontserrat,
         fontWeight: FontWeight.w400,
-        fontSize: 40,
+        fontSize: 25,
+        letterSpacing: 0,
         color: mainTextColor,
+      ),
+      titleSmall: TextStyle(
+        fontFamily: fontFamilyMontserrat,
+        fontWeight: FontWeight.w400,
+        fontSize: 15,
+        letterSpacing: 0,
+        color: mainTextColor,
+      ),
+      labelSmall: TextStyle(
+        fontFamily: fontFamilyMontserrat,
+        fontWeight: FontWeight.w400,
+        fontSize: 15,
+        letterSpacing: 0,
+        color: successColor,
       ),
     ));

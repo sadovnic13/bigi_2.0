@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../design/design.dart';
+import '../../../repositories/repositories.dart';
 
 class BillPageScreen extends StatefulWidget {
   const BillPageScreen({super.key});
@@ -10,14 +11,14 @@ class BillPageScreen extends StatefulWidget {
 }
 
 class _BillPageScreenState extends State<BillPageScreen> {
-  int? billId;
+  MoneyBill? bill;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final args = ModalRoute.of(context)?.settings.arguments;
     assert(args != null, "Route args error");
-    billId = args as int;
+    bill = args as MoneyBill;
   }
 
   @override
@@ -27,7 +28,7 @@ class _BillPageScreenState extends State<BillPageScreen> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: mainTextColor),
         title: Text(
-          billId.toString(),
+          bill!.name,
           style: theme.textTheme.titleMedium,
         ),
       ),

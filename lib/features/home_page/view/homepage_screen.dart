@@ -1,6 +1,13 @@
+import 'package:bigi/features/home_page/bloc/homepage_block.dart';
+import 'package:bigi/features/home_page/view/history_list.dart';
+import 'package:bigi/features/widgets_common/load_circular.dart';
+import 'package:bigi/repositories/change_name/bills_repositories.dart';
+import 'package:bigi/repositories/change_name/history_repositories.dart';
+import 'package:bigi/repositories/models/models.dart';
 import 'package:flutter/material.dart';
 
 import '../../../design/design.dart';
+import '../widgets/widgets.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -10,10 +17,20 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
+  final _homepageBloc = HomepageBloc();
+  List<MoneyBill>? _moneyBillsList;
+  List<HistoryRecord>? _historyRecords;
+
+  @override
+  void initState() {
+    _loadData();
+    _homepageBloc.add(LoadDataBase());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    int billId = 1;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -21,13 +38,47 @@ class _HomePageScreenState extends State<HomePageScreen> {
           style: theme.textTheme.titleMedium,
         ),
       ),
-      body: Center(
-          child: ElevatedButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/bill_page_screen', arguments: billId);
-        },
-        child: Text(billId.toString()),
-      )),
+      body: _moneyBillsList == null && _historyRecords == null
+          ? LoadCircular()
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25, top: 15, right: 40, bottom: 10),
+                    child: Text(
+                      "Счета",
+                      style: theme.textTheme.titleMedium,
+                    ),
+                  ),
+                  BillTileList(moneyBillsList: _moneyBillsList!),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25, top: 15, right: 40, bottom: 10),
+                    child: Text(
+                      "История",
+                      style: theme.textTheme.titleMedium,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 10),
+                    decoration: BoxDecoration(
+                      color: surfaceColor,
+                      borderRadius: BorderRadius.circular(cardBorderRadius),
+                    ),
+                    child: HistoryList(
+                      historyRecords: _historyRecords!,
+                    ),
+                  ),
+                ],
+              ),
+            ),
     );
+  }
+
+  Future<void> _loadData() async {
+    _moneyBillsList = await BillsRepositories().getBillsList();
+    _historyRecords = await HistoryRepositories().getHistoryList();
+    setState(() {});
   }
 }
