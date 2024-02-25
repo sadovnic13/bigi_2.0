@@ -1,12 +1,10 @@
-import 'package:bigi/features/home_page/bloc/homepage_block.dart';
-import 'package:bigi/features/home_page/view/history_list.dart';
-import 'package:bigi/features/widgets_common/load_circular.dart';
-import 'package:bigi/repositories/change_name/bills_repositories.dart';
-import 'package:bigi/repositories/change_name/history_repositories.dart';
-import 'package:bigi/repositories/models/models.dart';
 import 'package:flutter/material.dart';
 
 import '../../../design/design.dart';
+import '../../../repositories/repositories.dart';
+import '../../widgets_common/widgets_common.dart';
+import '../bloc/homepage_block.dart';
+import '../home_page.dart';
 import '../widgets/widgets.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -61,7 +59,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 10),
+                    padding: const EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
                     decoration: BoxDecoration(
                       color: surfaceColor,
                       borderRadius: BorderRadius.circular(cardBorderRadius),

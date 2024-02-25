@@ -11,6 +11,11 @@ final darkTheme = ThemeData(
       backgroundColor: surfaceColor,
       elevation: 0,
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
+      ),
+    ),
     textTheme: const TextTheme(
       titleMedium: TextStyle(
         fontFamily: fontFamilyMontserrat,
