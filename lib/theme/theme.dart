@@ -5,7 +5,7 @@ import '../design/design.dart';
 const String fontFamilyMontserrat = "Montserrat";
 
 final darkTheme = ThemeData(
-    useMaterial3: false,
+    // useMaterial3: false,
     scaffoldBackgroundColor: backgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: surfaceColor,

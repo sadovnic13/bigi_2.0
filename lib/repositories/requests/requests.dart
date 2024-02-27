@@ -1,2 +1,2 @@
-export 'history_repositories.dart';
-export 'bills_repositories.dart';
+export 'history_repository.dart';
+export 'bills_repository.dart';

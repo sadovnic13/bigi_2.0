@@ -40,10 +40,10 @@ class SpendRow extends StatelessWidget {
                         style: theme.textTheme.titleSmall,
                       ),
                       Text(
-                        record.billId.toString(),
+                        record.billName.toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: fontFamilyMontserrat,
                             fontSize: fontSize15,
                             color: secondTextColor,
@@ -69,7 +69,7 @@ class SpendRow extends StatelessWidget {
                     ),
                     Text(
                       record.date.split('-').reversed.join('.'),
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: fontFamilyMontserrat,
                           fontSize: fontSize15,
                           color: secondTextColor,
@@ -82,7 +82,10 @@ class SpendRow extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(cardBorderRadius)),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(cardBorderRadius),
+            ),
             height: 2,
           ),
         ],

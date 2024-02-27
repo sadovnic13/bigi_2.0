@@ -2,7 +2,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/models.dart';
 
-class BillsRepositories {
+class BillsRepository {
   Future<List<MoneyBill>> getBillsList() async {
     final SupabaseClient client = Supabase.instance.client;
     final response = await client.from('bills').select('*').order('created_at', ascending: true);

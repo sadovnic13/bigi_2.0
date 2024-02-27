@@ -1,5 +1,8 @@
 part of 'homepage_block.dart';
 
-class HomepageEvent {}
+abstract class HomepageEvent extends Equatable {}
 
-class LoadDataBase extends HomepageEvent {}
+class LoadDataBase extends HomepageEvent {
+  @override
+  List<Object?> get props => [];
+}

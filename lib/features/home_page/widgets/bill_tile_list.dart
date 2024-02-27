@@ -4,7 +4,7 @@ import '../../../repositories/repositories.dart';
 import 'bill_card.dart';
 
 class BillTileList extends StatelessWidget {
-  BillTileList({super.key, required this.moneyBillsList});
+  const BillTileList({super.key, required this.moneyBillsList});
   final List<MoneyBill> moneyBillsList;
 
   @override

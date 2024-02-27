@@ -24,7 +24,7 @@ class HistoryList extends StatelessWidget {
         },
       ),
       historyRecords.length > countRow
-          ? Container(
+          ? SizedBox(
               width: double.infinity,
               child: TextButton(
                 onPressed: () {
@@ -41,7 +41,7 @@ class HistoryList extends StatelessWidget {
                 ),
               ),
             )
-          : SizedBox(),
+          : const SizedBox(),
     ]);
   }
 }
