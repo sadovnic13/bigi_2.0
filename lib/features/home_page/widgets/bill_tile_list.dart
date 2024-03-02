@@ -10,7 +10,7 @@ class BillTileList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 100,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         scrollDirection: Axis.horizontal,

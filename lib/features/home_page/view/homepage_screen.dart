@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../design/design.dart';
 import '../../../repositories/repositories.dart';
-import '../../../theme/theme.dart';
 import '../../widgets_common/widgets_common.dart';
 import '../bloc/homepage_block.dart';
 import '../home_page.dart';
@@ -16,13 +15,10 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  // List<MoneyBill>? _moneyBillsList;
-  // List<HistoryRecord>? _historyRecords;
   final _homepageBloc = HomepageBloc(BillsRepository(), HistoryRepository());
 
   @override
   void initState() {
-    // _loadData();
     _homepageBloc.add(LoadDataBase());
     super.initState();
   }
@@ -31,135 +27,69 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Главная',
-            style: theme.textTheme.titleMedium,
-          ),
+      appBar: AppBar(
+        title: const Text(
+          'Главная',
         ),
-        body: BlocBuilder<HomepageBloc, HomepageState>(
-          bloc: _homepageBloc,
-          builder: (context, state) {
-            if (state is HomepageLoaded) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  _homepageBloc.add(LoadDataBase());
-                },
-                child: ListView(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, top: 15, right: 40, bottom: 10),
-                          child: Text(
-                            "Счета",
-                            style: theme.textTheme.titleMedium,
-                          ),
+      ),
+      drawer: const SideMenu(),
+      body: BlocBuilder<HomepageBloc, HomepageState>(
+        bloc: _homepageBloc,
+        builder: (context, state) {
+          if (state is HomepageLoaded) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                _homepageBloc.add(LoadDataBase());
+              },
+              child: ListView(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 15, top: 0, right: 40, bottom: 10),
+                      //   child: Text(
+                      //     "Счета",
+                      //     style: theme.textTheme.labelMedium,
+                      //   ),
+                      // ),
+                      BillTileList(moneyBillsList: state.billsList),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, top: 15, right: 40, bottom: 5),
+                        child: Text(
+                          "История",
+                          style: theme.textTheme.labelMedium,
                         ),
-                        BillTileList(moneyBillsList: state.billsList),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, top: 15, right: 40, bottom: 10),
-                          child: Text(
-                            "История",
-                            style: theme.textTheme.titleMedium,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 15),
-                          padding: const EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
-                          decoration: BoxDecoration(
-                            color: surfaceColor,
-                            borderRadius: BorderRadius.circular(cardBorderRadius),
-                          ),
-                          child: HistoryList(
-                            historyRecords: state.historyRecords,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }
-            if (state is HomepageFailure) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "ЧТо-то пошло не так",
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    const Text(
-                      'Попробуйте позже',
-                      style: TextStyle(
-                          fontFamily: fontFamilyMontserrat,
-                          fontSize: fontSize15,
-                          color: secondTextColor,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        _homepageBloc.add(LoadDataBase());
-                      },
-                      child: Text(
-                        'Повторить',
-                        style: theme.textTheme.labelSmall,
                       ),
-                    )
-                  ],
-                ),
-              );
-            }
-            return const LoadCircular();
-          },
-        )
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(width: 1, color: mainTextColor),
+                          ),
+                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
+                        child: HistoryList(
+                          historyRecords: state.historyRecords,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }
 
-        //  _moneyBillsList == null && _historyRecords == null
-        //     ? LoadCircular()
-        //     : SingleChildScrollView(
-        //         child: Column(
-        //           crossAxisAlignment: CrossAxisAlignment.start,
-        //           children: [
-        //             Padding(
-        //               padding: const EdgeInsets.only(left: 25, top: 15, right: 40, bottom: 10),
-        //               child: Text(
-        //                 "Счета",
-        //                 style: theme.textTheme.titleMedium,
-        //               ),
-        //             ),
-        //             BillTileList(moneyBillsList: _moneyBillsList!),
-        //             Padding(
-        //               padding: const EdgeInsets.only(left: 25, top: 15, right: 40, bottom: 10),
-        //               child: Text(
-        //                 "История",
-        //                 style: theme.textTheme.titleMedium,
-        //               ),
-        //             ),
-        //             Container(
-        //               margin: const EdgeInsets.symmetric(horizontal: 15),
-        //               padding: const EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 5),
-        //               decoration: BoxDecoration(
-        //                 color: surfaceColor,
-        //                 borderRadius: BorderRadius.circular(cardBorderRadius),
-        //               ),
-        //               child: HistoryList(
-        //                 historyRecords: _historyRecords!,
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        );
-  }
+          if (state is HomepageFailure) {
+            return FailureMessage(userClick: () {
+              _homepageBloc.add(LoadDataBase());
+            });
+          }
 
-  Future<void> _loadData() async {
-    // _moneyBillsList = await BillsRepository().getBillsList();
-    // _historyRecords = await HistoryRepository().getHistoryList();
-    setState(() {});
+          return const LoadCircular();
+        },
+      ),
+    );
   }
 }

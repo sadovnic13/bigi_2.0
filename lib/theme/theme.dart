@@ -10,6 +10,14 @@ final darkTheme = ThemeData(
     appBarTheme: const AppBarTheme(
       backgroundColor: surfaceColor,
       elevation: 0,
+      iconTheme: IconThemeData(color: mainTextColor),
+      titleTextStyle: TextStyle(
+        fontFamily: fontFamilyMontserrat,
+        fontWeight: FontWeight.w700,
+        fontSize: 25,
+        letterSpacing: 0,
+        color: mainTextColor,
+      ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
@@ -17,23 +25,37 @@ final darkTheme = ThemeData(
       ),
     ),
     textTheme: const TextTheme(
-      titleMedium: TextStyle(
+      titleLarge: TextStyle(
         fontFamily: fontFamilyMontserrat,
         fontWeight: FontWeight.w400,
+        fontSize: 35,
+        letterSpacing: 0,
+        color: mainTextColor,
+      ),
+      titleMedium: TextStyle(
+        fontFamily: fontFamilyMontserrat,
+        fontWeight: FontWeight.w700,
         fontSize: 25,
         letterSpacing: 0,
         color: mainTextColor,
       ),
       titleSmall: TextStyle(
         fontFamily: fontFamilyMontserrat,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w700,
         fontSize: 15,
+        letterSpacing: 0,
+        color: mainTextColor,
+      ),
+      labelMedium: TextStyle(
+        fontFamily: fontFamilyMontserrat,
+        fontWeight: FontWeight.w400,
+        fontSize: 25,
         letterSpacing: 0,
         color: mainTextColor,
       ),
       labelSmall: TextStyle(
         fontFamily: fontFamilyMontserrat,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w700,
         fontSize: 15,
         letterSpacing: 0,
         color: successColor,

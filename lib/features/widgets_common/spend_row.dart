@@ -67,27 +67,27 @@ class SpendRow extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    Text(
-                      record.date.split('-').reversed.join('.'),
-                      style: const TextStyle(
-                          fontFamily: fontFamilyMontserrat,
-                          fontSize: fontSize15,
-                          color: secondTextColor,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    // Text(
+                    //   record.date.split('-').reversed.join('.'),
+                    //   style: const TextStyle(
+                    //       fontFamily: fontFamilyMontserrat,
+                    //       fontSize: fontSize15,
+                    //       color: secondTextColor,
+                    //       fontWeight: FontWeight.w400),
+                    // ),
                   ],
                 ),
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(cardBorderRadius),
-            ),
-            height: 2,
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(top: 15),
+          //   decoration: BoxDecoration(
+          //     color: backgroundColor,
+          //     borderRadius: BorderRadius.circular(cardBorderRadius),
+          //   ),
+          //   height: 2,
+          // ),
         ],
       ),
     );
