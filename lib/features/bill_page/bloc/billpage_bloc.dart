@@ -1,8 +1,10 @@
-import 'package:bigi/features/bill_page/bloc/billpage_event.dart';
-import 'package:bigi/features/bill_page/bloc/billpage_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../repositories/repositories.dart';
 import '../../../repositories/requests/requests.dart';
+
+part 'billpage_event.dart';
+part 'billpage_state.dart';
 
 class BillpageBloc extends Bloc<BillpageEvent, BillpageState> {
   BillpageBloc(this.billsRepository, this.historyRepository, this.billId) : super(BillpageInitial()) {

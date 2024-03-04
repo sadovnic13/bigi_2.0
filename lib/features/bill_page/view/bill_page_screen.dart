@@ -1,12 +1,11 @@
-import 'package:bigi/features/bill_page/bloc/billpage_bloc.dart';
-import 'package:bigi/features/bill_page/bloc/billpage_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../design/design.dart';
 import '../../../repositories/repositories.dart';
 import '../../widgets_common/widgets_common.dart';
-import '../bloc/billpage_state.dart';
+import '../bill_page.dart';
+import '../bloc/billpage_bloc.dart';
 
 class BillPageScreen extends StatefulWidget {
   const BillPageScreen({super.key});
@@ -48,11 +47,35 @@ class _BillPageScreenState extends State<BillPageScreen> {
         bloc: _billpageBloc,
         builder: (context, state) {
           if (state is BillpageLoaded) {
-            return SizedBox(
-              height: 150,
-              child: Center(
-                child: Text('${state.bill.balance.toString()} BYN', style: theme.textTheme.titleLarge),
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 150,
+                  child: Center(
+                    child: Text('${state.bill.balance.toString()} BYN', style: theme.textTheme.titleLarge),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, top: 15, right: 40, bottom: 5),
+                  child: Text(
+                    "Сегодня",
+                    style: theme.textTheme.labelMedium,
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(width: 1, color: mainTextColor),
+                    ),
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
+                  child: state.billHistoryRecords.isNotEmpty
+                      ? HistoryList(historyRecords: state.billHistoryRecords)
+                      : EmptyHistory(),
+                ),
+              ],
             );
           }
           if (state is BillpageFailure) {

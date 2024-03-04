@@ -1,14 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 
 class HistoryRecord extends Equatable {
-  const HistoryRecord(
-      {required this.id,
-      required this.category,
-      required this.billName,
-      required this.money,
-      required this.date,
-      required this.isProfit});
-
+  HistoryRecord({
+    required this.id,
+    required this.category,
+    required this.billName,
+    required this.money,
+    required this.date,
+    required this.isProfit,
+  });
   final int id;
   final String category;
   final String billName;

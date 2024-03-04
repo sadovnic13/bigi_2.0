@@ -55,10 +55,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       //   ),
                       // ),
                       BillTileList(moneyBillsList: state.billsList),
+
                       Padding(
                         padding: const EdgeInsets.only(left: 15, top: 15, right: 40, bottom: 5),
                         child: Text(
-                          "История",
+                          "Сегодня",
                           style: theme.textTheme.labelMedium,
                         ),
                       ),
@@ -70,9 +71,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 15),
                         padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
-                        child: HistoryList(
-                          historyRecords: state.historyRecords,
-                        ),
+                        child: state.historyRecords.isNotEmpty
+                            ? HistoryList(historyRecords: state.historyRecords)
+                            : EmptyHistory(),
                       ),
                     ],
                   ),

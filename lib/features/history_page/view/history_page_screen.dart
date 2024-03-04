@@ -39,8 +39,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
         bloc: _historypageBloc,
         builder: (context, state) {
           if (state is HistorypageLoaded) {
-            Map<String, List<HistoryRecord>> groupByDate =
-                groupBy(state.historyRecords, (obj) => obj.date.substring(0, 10));
+            Map<String, List<HistoryRecord>> groupByDate = groupBy(state.historyRecords, (obj) => obj.date);
 
             List<Widget> widgets = [];
             List<String> months = [
@@ -67,7 +66,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     dateParts.reversed.join(' '),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: fontFamilyMontserrat,
                       fontWeight: FontWeight.w400,
                       fontSize: 20,
@@ -77,13 +76,13 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                   ),
                 ),
               );
-              widgets.add(Divider(
+              widgets.add(const Divider(
                 color: mainTextColor,
               ));
               // Group
-              list.forEach((listItem) {
+              for (var listItem in list) {
                 widgets.add(SpendRow(record: listItem));
-              });
+              }
             });
 
             return ListView(

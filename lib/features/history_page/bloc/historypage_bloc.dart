@@ -13,7 +13,7 @@ class HistorypageBloc extends Bloc<HistorypageEvent, HistorypageState> {
       try {
         emit(HistorypageLoading());
         final historyRecords = await historyRepository.getHistoryList();
-        debugPrint(historyRecords.toString());
+        // debugPrint(historyRecords.toString());
         emit(HistorypageLoaded(historyRecords: historyRecords));
       } catch (e) {
         emit(HistorypageFailure(exception: e));

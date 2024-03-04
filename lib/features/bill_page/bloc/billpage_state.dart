@@ -1,4 +1,4 @@
-import '../../../repositories/repositories.dart';
+part of 'billpage_bloc.dart';
 
 class BillpageState {}
 
