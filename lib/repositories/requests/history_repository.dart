@@ -61,6 +61,7 @@ class HistoryRepository {
         .from('history')
         .select('*, bill:bill_id (name)')
         .eq('bill_id', id)
+        .eq('date', DateTime.now().toString().substring(0, 10))
         .limit(4)
         .order('date', ascending: false)
         .order('created_at', ascending: false);

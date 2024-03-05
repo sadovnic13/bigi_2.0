@@ -9,6 +9,7 @@ final darkTheme = ThemeData(
     scaffoldBackgroundColor: backgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: surfaceColor,
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
       iconTheme: IconThemeData(color: mainTextColor),
       titleTextStyle: TextStyle(

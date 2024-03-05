@@ -6,6 +6,7 @@ import '../../../repositories/repositories.dart';
 import '../../widgets_common/widgets_common.dart';
 import '../bill_page.dart';
 import '../bloc/billpage_bloc.dart';
+import '../widgets/widgets.dart';
 
 class BillPageScreen extends StatefulWidget {
   const BillPageScreen({super.key});
@@ -73,7 +74,7 @@ class _BillPageScreenState extends State<BillPageScreen> {
                   padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
                   child: state.billHistoryRecords.isNotEmpty
                       ? HistoryList(historyRecords: state.billHistoryRecords)
-                      : EmptyHistory(),
+                      : const EmptyHistory(),
                 ),
               ],
             );

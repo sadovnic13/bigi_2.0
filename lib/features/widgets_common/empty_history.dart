@@ -13,7 +13,7 @@ class EmptyHistory extends StatelessWidget {
         margin: const EdgeInsets.symmetric(
           vertical: 15,
         ),
-        child: Text(
+        child: const Text(
           "История пуста",
           style: TextStyle(
               fontFamily: fontFamilyMontserrat,

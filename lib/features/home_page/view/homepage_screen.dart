@@ -73,7 +73,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
                         child: state.historyRecords.isNotEmpty
                             ? HistoryList(historyRecords: state.historyRecords)
-                            : EmptyHistory(),
+                            : const EmptyHistory(),
                       ),
                     ],
                   ),
