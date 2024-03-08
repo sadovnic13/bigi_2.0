@@ -35,7 +35,11 @@ class HistoryList extends StatelessWidget {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/history_page_screen");
+                    Navigator.pushReplacementNamed(
+                      context,
+                      "/history_page_screen",
+                      arguments: <int>[],
+                    );
                   },
                   child: const Text(
                     'Ещё',

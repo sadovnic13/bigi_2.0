@@ -63,7 +63,12 @@ class SideMenu extends StatelessWidget {
     if (ModalRoute.of(context)?.settings.name != name) {
       // if (currentRoute != name) {
       // await getSmallHistory();
-      Navigator.pushReplacementNamed(context, name);
+      Navigator.pushReplacementNamed(
+        context,
+        name,
+        // (Route<dynamic> route) => false,
+        arguments: <int>[],
+      );
     } else {
       Navigator.pop(context);
     }
@@ -73,7 +78,12 @@ class SideMenu extends StatelessWidget {
 }
 
 class DrawerItem extends StatelessWidget {
-  const DrawerItem({super.key, required this.name, required this.icon, required this.onPressed});
+  const DrawerItem({
+    super.key,
+    required this.name,
+    required this.icon,
+    required this.onPressed,
+  });
 
   final String name;
   final SvgPicture icon;

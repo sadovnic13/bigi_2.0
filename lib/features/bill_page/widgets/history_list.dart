@@ -8,8 +8,13 @@ import '../../../theme/theme.dart';
 import '../../widgets_common/widgets_common.dart';
 
 class HistoryList extends StatelessWidget {
-  const HistoryList({super.key, required this.historyRecords});
+  const HistoryList({
+    super.key,
+    required this.historyRecords,
+    required this.billId,
+  });
   final List<HistoryRecord> historyRecords;
+  final int billId;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,12 @@ class HistoryList extends StatelessWidget {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/history_page_screen");
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      "/history_page_screen",
+                      (Route<dynamic> route) => false,
+                      arguments: [billId],
+                    );
                   },
                   child: const Text(
                     'Ещё',

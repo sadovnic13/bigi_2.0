@@ -1,13 +1,13 @@
-import 'package:bigi/design/colors.dart';
-import 'package:bigi/design/design.dart';
-import 'package:bigi/repositories/repositories.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../design/design.dart';
+import '../../../repositories/repositories.dart';
 import '../../../theme/theme.dart';
 import '../../widgets_common/widgets_common.dart';
 import '../bloc/bloc.dart';
+import '../widgets/widgets.dart';
 
 class HistoryPageScreen extends StatefulWidget {
   const HistoryPageScreen({super.key});
@@ -18,135 +18,155 @@ class HistoryPageScreen extends StatefulWidget {
 
 class _HistoryPageScreenState extends State<HistoryPageScreen> {
   final _historypageBloc = HistorypageBloc(HistoryRepository(), BillsRepository());
+  final _filterBloc = FilterBloc(HistoryRepository());
 
   List<int> selectedItems = [];
 
   @override
   void initState() {
-    _historypageBloc.add(LoadDataBase());
+    _historypageBloc.add(LoadBills());
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    selectedItems = ModalRoute.of(context)?.settings.arguments as List<int> ?? [];
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'История  ',
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        Navigator.of(context).pushReplacementNamed('/');
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'История  ',
+          ),
         ),
-      ),
-      drawer: const SideMenu(),
-      body: BlocBuilder<HistorypageBloc, HistorypageState>(
-        bloc: _historypageBloc,
-        builder: (context, state) {
-          if (state is HistorypageLoaded) {
-            Map<String, List<HistoryRecord>> groupByDate = groupBy(state.historyRecords, (obj) => obj.date);
+        drawer: const SideMenu(),
+        body: BlocBuilder<HistorypageBloc, HistorypageState>(
+          bloc: _historypageBloc,
+          builder: (context, state) {
+            if (state is HistorypageLoaded) {
+              _filterBloc.add(LoadHistoryList(selectedItems: selectedItems));
 
-            List<Widget> widgets = [];
-            List<String> months = [
-              'январь',
-              'февраль',
-              'март',
-              'апрель',
-              'май',
-              'июнь',
-              'июль',
-              'август',
-              'сентябрь',
-              'октябрь',
-              'ноябрь',
-              'декабрь'
-            ];
-
-            groupByDate.forEach((date, list) {
-              List<String> dateParts = date.split('-');
-              dateParts[1] = months[int.parse(dateParts[1]) - 1];
-              // Header
-              widgets.add(
-                Container(
-                  child: Text(
-                    dateParts.reversed.join(' '),
-                    style: const TextStyle(
-                      fontFamily: fontFamilyMontserrat,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      letterSpacing: 0,
-                      color: mainTextColor,
+              Map<String, List<HistoryRecord>> groupByDate = groupBy(state.historyRecords, (obj) => obj.date);
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _historypageBloc.add(LoadBills());
+                },
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 60,
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        scrollDirection: Axis.horizontal,
+                        children: state.billsList.map((MoneyBill item) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: BillChip(
+                              selectedItems: selectedItems,
+                              item: item,
+                              filterBloc: _filterBloc,
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: BlocBuilder<FilterBloc, FilterState>(
+                        bloc: _filterBloc,
+                        builder: (context, state) {
+                          if (state is FilterLoaded) {
+                            if (state.historyRecords.isEmpty) return EmptyHistory();
+                            groupByDate = groupBy(state.historyRecords, (obj) => obj.date);
+                            List<Widget> widgets = [];
+                            List<String> months = [
+                              'января',
+                              'февраля',
+                              'марта',
+                              'апреля',
+                              'мая',
+                              'июня',
+                              'июля',
+                              'августа',
+                              'сентября',
+                              'октября',
+                              'ноября',
+                              'декабря'
+                            ];
+
+                            groupByDate.forEach((date, list) {
+                              List<String> dateParts = [];
+                              if (date == DateTime.now().toIso8601String().substring(0, 10)) {
+                                dateParts.add('Сегодня');
+                              } else {
+                                dateParts = date.split('-');
+                                dateParts[2] = int.parse(dateParts[2]).toString();
+                                dateParts[1] = months[int.parse(dateParts[1]) - 1];
+                              }
+                              // Header
+                              widgets.add(
+                                Container(
+                                  child: Text(
+                                    dateParts.reversed.join(' '),
+                                    style: const TextStyle(
+                                      fontFamily: fontFamilyMontserrat,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 20,
+                                      letterSpacing: 0,
+                                      color: mainTextColor,
+                                    ),
+                                  ),
+                                ),
+                              );
+                              widgets.add(const Divider(
+                                color: mainTextColor,
+                              ));
+                              // Group
+                              for (var listItem in list) {
+                                widgets.add(SpendRow(record: listItem));
+                              }
+                            });
+                            return ListView(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              children: widgets,
+                            );
+                          }
+
+                          if (state is FilterFailure) {
+                            return FailureMessage(userClick: () {
+                              _filterBloc.add(LoadHistoryList(selectedItems: selectedItems));
+                            });
+                          }
+
+                          return const LoadCircular();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               );
-              widgets.add(const Divider(
-                color: mainTextColor,
-              ));
-              // Group
-              for (var listItem in list) {
-                widgets.add(SpendRow(record: listItem));
-              }
-            });
+            }
 
-            return Column(
-              children: [
-                SizedBox(
-                  height: 60,
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    scrollDirection: Axis.horizontal,
-                    children: state.billsList.map((MoneyBill item) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: FilterChip(
-                          labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                          labelStyle: TextStyle(
-                            fontSize: 13,
-                            color: selectedItems.contains(item.id) ? const Color(0xFF000000) : const Color(0xFFE5FF70),
-                          ),
-                          backgroundColor: const Color(0xFF000000),
-                          selectedColor: const Color(0xFFE5FF70),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(
-                              color: selectedItems.contains(item.id) ? Colors.transparent : const Color(0xFFE5FF70),
-                            ),
-                          ),
-                          showCheckmark: false,
-                          label: Text(item.name),
-                          selected: selectedItems.contains(item.id),
-                          onSelected: (selected) {
-                            setState(
-                              () {
-                                selected ? selectedItems.add(item.id) : selectedItems.remove(item.id);
-                                _historypageBloc.add(FilterDataBase());
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    children: widgets,
-                  ),
-                ),
-              ],
-            );
-          }
+            if (state is HistorypageFailure) {
+              return FailureMessage(userClick: () {
+                _historypageBloc.add(LoadBills());
+              });
+            }
 
-          if (state is HistorypageFailure) {
-            return FailureMessage(userClick: () {
-              _historypageBloc.add(LoadDataBase());
-            });
-          }
-
-          return const LoadCircular();
-        },
+            return const LoadCircular();
+          },
+        ),
       ),
     );
   }

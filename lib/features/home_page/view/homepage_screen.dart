@@ -41,43 +41,42 @@ class _HomePageScreenState extends State<HomePageScreen> {
               onRefresh: () async {
                 _homepageBloc.add(LoadDataBase());
               },
-              child: ListView(
+              child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 15, top: 0, right: 40, bottom: 10),
-                      //   child: Text(
-                      //     "Счета",
-                      //     style: theme.textTheme.labelMedium,
-                      //   ),
-                      // ),
-                      BillTileList(moneyBillsList: state.billsList),
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 15, top: 0, right: 40, bottom: 10),
+                    //   child: Text(
+                    //     "Счета",
+                    //     style: theme.textTheme.labelMedium,
+                    //   ),
+                    // ),
+                    BillTileList(moneyBillsList: state.billsList),
 
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 15, right: 40, bottom: 5),
-                        child: Text(
-                          "Сегодня",
-                          style: theme.textTheme.labelMedium,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 15, right: 40, bottom: 5),
+                      child: Text(
+                        "Сегодня",
+                        style: theme.textTheme.labelMedium,
+                      ),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(width: 1, color: mainTextColor),
                         ),
                       ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            top: BorderSide(width: 1, color: mainTextColor),
-                          ),
-                        ),
-                        margin: const EdgeInsets.symmetric(horizontal: 15),
-                        padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
-                        child: state.historyRecords.isNotEmpty
-                            ? HistoryList(historyRecords: state.historyRecords)
-                            : const EmptyHistory(),
-                      ),
-                    ],
-                  ),
-                ],
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 5),
+                      child: state.historyRecords.isNotEmpty
+                          ? HistoryList(historyRecords: state.historyRecords)
+                          : const EmptyHistory(),
+                    ),
+                  ],
+                ),
               ),
             );
           }

@@ -1,13 +1,27 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../repositories/repositories.dart';
 
 part 'filter_event.dart';
 part 'filter_state.dart';
 
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
-  FilterBloc() : super(FilterInitial()) {
-    on<SortHistoryList>((event, emit) {
-      debugPrint("Filtring...");
+  FilterBloc(this.historyRepository) : super(FilterInitial()) {
+    on<LoadHistoryList>((event, emit) async {
+      try {
+        emit(FilterLoading());
+        final historyRecords = event.selectedItems.isNotEmpty
+            ? await historyRepository.getFilteredHistoryList(event.selectedItems)
+            : await historyRepository.getHistoryList();
+        emit(FilterLoaded(historyRecords: historyRecords));
+      } catch (e) {
+        emit(FilterFailure(exception: e));
+      }
     });
   }
+
+  final HistoryRepository historyRepository;
 }
