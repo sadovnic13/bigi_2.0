@@ -43,6 +43,12 @@ class _BillPageScreenState extends State<BillPageScreen> {
           bill!.name,
         ),
       ),
+      floatingActionButton: BlocBuilder<BillpageBloc, BillpageState>(
+        bloc: _billpageBloc,
+        builder: (context, state) {
+          return state is BillpageLoaded ? AddButton() : SizedBox();
+        },
+      ),
       body: BlocBuilder<BillpageBloc, BillpageState>(
         bloc: _billpageBloc,
         builder: (context, state) {
@@ -53,7 +59,7 @@ class _BillPageScreenState extends State<BillPageScreen> {
               },
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

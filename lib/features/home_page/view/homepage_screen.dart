@@ -33,6 +33,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
         ),
       ),
       drawer: const SideMenu(),
+      floatingActionButton: BlocBuilder<HomepageBloc, HomepageState>(
+        bloc: _homepageBloc,
+        builder: (context, state) {
+          return state is HomepageLoaded ? AddButton() : SizedBox();
+        },
+      ),
       body: BlocBuilder<HomepageBloc, HomepageState>(
         bloc: _homepageBloc,
         builder: (context, state) {
@@ -43,7 +49,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               },
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

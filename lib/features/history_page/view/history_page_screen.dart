@@ -85,7 +85,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                         bloc: _filterBloc,
                         builder: (context, state) {
                           if (state is FilterLoaded) {
-                            if (state.historyRecords.isEmpty) return EmptyHistory();
+                            if (state.historyRecords.isEmpty) return const EmptyHistory();
                             groupByDate = groupBy(state.historyRecords, (obj) => obj.date);
                             List<Widget> widgets = [];
                             List<String> months = [

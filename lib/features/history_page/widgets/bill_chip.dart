@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../design/design.dart';
 import '../../../repositories/repositories.dart';
 import '../bloc/bloc.dart';
 
@@ -25,14 +26,14 @@ class _BillChipState extends State<BillChip> {
       labelPadding: const EdgeInsets.symmetric(horizontal: 10),
       labelStyle: TextStyle(
         fontSize: 13,
-        color: widget.selectedItems.contains(widget.item.id) ? const Color(0xFF000000) : const Color(0xFFE5FF70),
+        color: widget.selectedItems.contains(widget.item.id) ? backgroundColor : floatingColor,
       ),
-      backgroundColor: const Color(0xFF000000),
-      selectedColor: const Color(0xFFE5FF70),
+      backgroundColor: backgroundColor,
+      selectedColor: floatingColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(
-          color: widget.selectedItems.contains(widget.item.id) ? Colors.transparent : const Color(0xFFE5FF70),
+          color: widget.selectedItems.contains(widget.item.id) ? Colors.transparent : floatingColor,
         ),
       ),
       showCheckmark: false,
