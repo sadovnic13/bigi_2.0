@@ -46,7 +46,7 @@ class _BillPageScreenState extends State<BillPageScreen> {
       floatingActionButton: BlocBuilder<BillpageBloc, BillpageState>(
         bloc: _billpageBloc,
         builder: (context, state) {
-          return state is BillpageLoaded ? AddButton() : SizedBox();
+          return state is BillpageLoaded ? const AddButton() : const SizedBox();
         },
       ),
       body: BlocBuilder<BillpageBloc, BillpageState>(

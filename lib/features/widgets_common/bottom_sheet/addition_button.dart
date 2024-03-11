@@ -15,9 +15,12 @@ class AddButton extends StatelessWidget {
       backgroundColor: floatingColor,
       onPressed: () {
         showModalBottomSheet(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
             context: context,
             builder: (context) {
-              return AdditionForm();
+              return const AdditionForm();
             });
       },
       child: SizedBox(

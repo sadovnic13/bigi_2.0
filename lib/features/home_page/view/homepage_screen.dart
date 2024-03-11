@@ -36,7 +36,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       floatingActionButton: BlocBuilder<HomepageBloc, HomepageState>(
         bloc: _homepageBloc,
         builder: (context, state) {
-          return state is HomepageLoaded ? AddButton() : SizedBox();
+          return state is HomepageLoaded ? const AddButton() : const SizedBox();
         },
       ),
       body: BlocBuilder<HomepageBloc, HomepageState>(

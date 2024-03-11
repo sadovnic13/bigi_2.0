@@ -70,7 +70,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                         scrollDirection: Axis.horizontal,
                         children: state.billsList.map((MoneyBill item) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            padding: const EdgeInsets.symmetric(horizontal: 7.5),
                             child: BillChip(
                               selectedItems: selectedItems,
                               item: item,

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import '../../../design/design.dart';
@@ -9,11 +10,11 @@ class BillChip extends StatefulWidget {
   final MoneyBill item;
   final FilterBloc filterBloc;
   const BillChip({
-    super.key,
+    Key? key,
     required this.selectedItems,
     required this.item,
     required this.filterBloc,
-  });
+  }) : super(key: key);
 
   @override
   State<BillChip> createState() => _BillChipState();
