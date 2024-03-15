@@ -60,7 +60,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     //     style: theme.textTheme.labelMedium,
                     //   ),
                     // ),
-                    BillTileList(moneyBillsList: state.billsList),
+                    state.billsList.isEmpty
+                        ? Container(
+                            height: 100,
+                            width: 40,
+                            color: successColor,
+                          )
+                        : BillTileList(moneyBillsList: state.billsList),
 
                     Padding(
                       padding: const EdgeInsets.only(left: 15, top: 15, right: 40, bottom: 5),

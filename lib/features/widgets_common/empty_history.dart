@@ -18,7 +18,7 @@ class EmptyHistory extends StatelessWidget {
           style: TextStyle(
               fontFamily: fontFamilyMontserrat,
               fontSize: fontSize20,
-              color: secondTextColor,
+              color: mainTextColor,
               fontWeight: FontWeight.w400),
         ),
       ),

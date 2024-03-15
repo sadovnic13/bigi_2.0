@@ -20,10 +20,17 @@ class _AdditionFormState extends State<AdditionForm> {
       decoration: const BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 0),
+            color: successColor,
+            blurRadius: 10.0,
+          ),
+        ],
         border: Border(
-          left: BorderSide(color: floatingColor, width: 2),
-          top: BorderSide(color: floatingColor, width: 2),
-          right: BorderSide(color: floatingColor, width: 2),
+          // left: BorderSide(color: floatingColor, width: 1),
+          top: BorderSide(color: floatingColor, width: 1),
+          // right: BorderSide(color: floatingColor, width: 1),
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),

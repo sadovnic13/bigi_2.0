@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../design/design.dart';
 import '../../theme/theme.dart';
@@ -9,52 +10,80 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final client = Supabase.instance.client;
+    // final name = client.from('profiles').select('*').eq('id', client.auth.currentUser!.id).single().toString();
     final theme = Theme.of(context);
     return Drawer(
       backgroundColor: surfaceColor,
       elevation: 0,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 100,
-                  child: profile_circle,
-                ),
-                Text(
-                  'Нагорный Герман',
-                  style: theme.textTheme.titleSmall,
-                ),
-              ],
-            ),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.horizontal(right: Radius.circular(20)),
+          border: Border(
+            right: BorderSide(color: floatingColor, width: 1),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                DrawerItem(
-                  name: 'Главная',
-                  icon: house_2,
-                  onPressed: () {
-                    doRoute(context, '/');
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                DrawerItem(
-                  name: 'История',
-                  icon: archive,
-                  onPressed: () {
-                    doRoute(context, '/history_page_screen');
-                  },
-                ),
-              ],
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                    child: profile_circle,
+                  ),
+                  Text(
+                    Supabase.instance.client.auth.currentUser!.email!,
+                    style: theme.textTheme.titleSmall,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    DrawerItem(
+                      name: 'Главная',
+                      icon: house_2,
+                      onPressed: () {
+                        doRoute(context, '/home_page_screen');
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    DrawerItem(
+                      name: 'История',
+                      icon: archive,
+                      onPressed: () {
+                        doRoute(context, '/history_page_screen');
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Supabase.instance.client.auth.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/log_page_screen',
+                  (route) => false,
+                );
+              },
+              style: ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.transparent)),
+              child: Text(
+                'Выход',
+                style: theme.textTheme.titleSmall,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -63,10 +92,11 @@ class SideMenu extends StatelessWidget {
     if (ModalRoute.of(context)?.settings.name != name) {
       // if (currentRoute != name) {
       // await getSmallHistory();
-      Navigator.pushReplacementNamed(
+      Navigator.pushNamedAndRemoveUntil(
         context,
         name,
-        // (Route<dynamic> route) => false,
+        // '/history_page_screen',
+        (Route<dynamic> route) => false,
         arguments: <int>[],
       );
     } else {

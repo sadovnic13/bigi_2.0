@@ -15,6 +15,8 @@ class HistorypageBloc extends Bloc<HistorypageEvent, HistorypageState> {
         final historyRecords = await historyRepository.getHistoryList();
         emit(HistorypageLoaded(billsList: moneyBillsList, historyRecords: historyRecords));
       } catch (e) {
+        print(e.toString());
+
         emit(HistorypageFailure(exception: e));
       }
     });
