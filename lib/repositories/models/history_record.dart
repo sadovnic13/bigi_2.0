@@ -10,7 +10,7 @@ class HistoryRecord extends Equatable {
     required this.isProfit,
   });
   final int id;
-  final String category;
+  final int category;
   final String billName;
   final double money;
   final String date;

@@ -1,3 +1,5 @@
+import 'package:bigi/features/features.dart';
+import 'package:bigi/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -25,9 +27,11 @@ class _LogPageScreenState extends State<LogPageScreen> {
     final email = _loginController.text;
     final password = _passwordController.text;
     final SupabaseClient client = Supabase.instance.client;
+    final CategoryRepository categoryRepository = CategoryRepository();
 
     try {
       await client.auth.signUp(email: email, password: password);
+      await categoryRepository.defaultCategoryCreation();
 
       print('Пользователь успешно зарегистрирован');
     } catch (e) {
@@ -39,11 +43,13 @@ class _LogPageScreenState extends State<LogPageScreen> {
     final email = _loginController.text;
     final password = _passwordController.text;
     final SupabaseClient client = Supabase.instance.client;
+    final CategoryRepository categoryRepository = CategoryRepository();
 
     try {
       await client.auth.signInWithPassword(email: email, password: password);
+      categoryList = await categoryRepository.getCategoryList();
+      debugPrint(categoryList.toString());
       print('Пользователь успешно вошел в систему');
-      print(Supabase.instance.client.auth.currentUser!.id);
       Navigator.pushNamedAndRemoveUntil(
         context,
         '/home_page_screen',

@@ -1,4 +1,6 @@
+import 'package:bigi/features/features.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../design/design.dart';
 import '../../repositories/repositories.dart';
@@ -11,7 +13,8 @@ class SpendRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final logo = 'house_2.svg';
+    final color = '0xFF9EFF4E';
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 5),
       child: Column(
@@ -23,7 +26,7 @@ class SpendRow extends StatelessWidget {
                 SizedBox(
                   height: litleiconsize,
                   width: litleiconsize,
-                  child: moneys,
+                  child: categoryList!.firstWhere((element) => element.id == record.category).categotyIcon,
                 ),
                 const SizedBox(
                   width: 15,
@@ -34,7 +37,7 @@ class SpendRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        record.category,
+                        categoryList!.firstWhere((element) => element.id == record.category).categoryName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.titleSmall,

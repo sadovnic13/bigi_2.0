@@ -13,11 +13,11 @@ class HistoryRepository {
 
     final List<HistoryRecord> historyList = response.map((e) {
       // Получаем данные счета из связанной таблицы
-      final bill = e['bill'] as Map<String, dynamic>;
+      final Map<String, dynamic> bill = e['bill'] as Map<String, dynamic>;
 
       return HistoryRecord(
         id: e['id'],
-        category: e['category'],
+        category: e['category_id'],
         billName: bill['name'],
         money: e['money'].toDouble(),
         date: e['date'],
@@ -43,7 +43,7 @@ class HistoryRepository {
 
       return HistoryRecord(
         id: e['id'],
-        category: e['category'],
+        category: e['category_id'],
         billName: bill['name'],
         money: e['money'].toDouble(),
         date: e['date'],
@@ -70,7 +70,7 @@ class HistoryRepository {
 
       return HistoryRecord(
         id: e['id'],
-        category: e['category'],
+        category: e['category_id'],
         billName: bill['name'],
         money: e['money'].toDouble(),
         date: e['date'],
@@ -98,7 +98,7 @@ class HistoryRepository {
 
       return HistoryRecord(
         id: e['id'],
-        category: e['category'],
+        category: e['category_id'],
         billName: bill['name'],
         money: e['money'].toDouble(),
         date: e['date'],
