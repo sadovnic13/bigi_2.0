@@ -1,3 +1,4 @@
+import 'package:bigi/design/colors.dart';
 import 'package:bigi/features/features.dart';
 import 'package:bigi/repositories/repositories.dart';
 import 'package:flutter/material.dart';
@@ -76,9 +77,7 @@ class _LogPageScreenState extends State<LogPageScreen> {
             TextFormField(
               controller: _loginController,
               style: theme.textTheme.titleMedium,
-              decoration: InputDecoration(
-                labelText: 'Введите логин',
-              ),
+              decoration: InputDecoration(labelText: 'Введите логин', labelStyle: theme.textTheme.titleMedium),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Пожалуйста, введите логин';
