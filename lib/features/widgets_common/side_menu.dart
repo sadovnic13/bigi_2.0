@@ -14,12 +14,12 @@ class SideMenu extends StatelessWidget {
     // final name = client.from('profiles').select('*').eq('id', client.auth.currentUser!.id).single().toString();
     final theme = Theme.of(context);
     return Drawer(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.horizontal(right: Radius.circular(0))),
       backgroundColor: surfaceColor,
       elevation: 0,
       child: Container(
         decoration: const BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.horizontal(right: Radius.circular(20)),
           border: Border(
             right: BorderSide(color: floatingColor, width: 1),
           ),
@@ -76,7 +76,7 @@ class SideMenu extends StatelessWidget {
                   (route) => false,
                 );
               },
-              style: ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.transparent)),
+              style: const ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.transparent)),
               child: Text(
                 'Выход',
                 style: theme.textTheme.titleSmall,

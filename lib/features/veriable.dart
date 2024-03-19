@@ -1,3 +1,3 @@
 import '../repositories/repositories.dart';
 
-List<Category>? categoryList;
+late List<Category> categoryList;

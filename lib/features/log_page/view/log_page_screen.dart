@@ -1,9 +1,7 @@
-import 'package:bigi/design/colors.dart';
-import 'package:bigi/features/features.dart';
-import 'package:bigi/repositories/repositories.dart';
+import 'package:bigi/design/design.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_auth_ui/supabase_auth_ui.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../widgets/widgets.dart';
 
 class LogPageScreen extends StatefulWidget {
   const LogPageScreen({super.key});
@@ -13,103 +11,58 @@ class LogPageScreen extends StatefulWidget {
 }
 
 class _LogPageScreenState extends State<LogPageScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _loginController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _loginController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _registerUser() async {
-    final email = _loginController.text;
-    final password = _passwordController.text;
-    final SupabaseClient client = Supabase.instance.client;
-    final CategoryRepository categoryRepository = CategoryRepository();
-
-    try {
-      await client.auth.signUp(email: email, password: password);
-      await categoryRepository.defaultCategoryCreation();
-
-      print('Пользователь успешно зарегистрирован');
-    } catch (e) {
-      print('Ошибка при регистрации: $e');
-    }
-  }
-
-  Future<void> _signInUser() async {
-    final email = _loginController.text;
-    final password = _passwordController.text;
-    final SupabaseClient client = Supabase.instance.client;
-    final CategoryRepository categoryRepository = CategoryRepository();
-
-    try {
-      await client.auth.signInWithPassword(email: email, password: password);
-      categoryList = await categoryRepository.getCategoryList();
-      debugPrint(categoryList.toString());
-      print('Пользователь успешно вошел в систему');
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/home_page_screen',
-        (route) => false,
-      );
-    } catch (e) {
-      print('Ошибка при входе: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      body: Form(
-        key: _formKey,
+      backgroundColor: backgroundColor,
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Логин",
-              style: theme.textTheme.titleLarge,
-            ),
-            TextFormField(
-              controller: _loginController,
-              style: theme.textTheme.titleMedium,
-              decoration: InputDecoration(labelText: 'Введите логин', labelStyle: theme.textTheme.titleMedium),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Пожалуйста, введите логин';
-                }
-                return null;
-              },
-            ),
-            Text(
-              "Пароль",
-              style: theme.textTheme.titleLarge,
-            ),
-            TextFormField(
-              controller: _passwordController,
-              style: theme.textTheme.titleMedium,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Введите пароль',
+            Container(
+              height: 175,
+              width: 175,
+              margin: const EdgeInsets.only(top: 25, bottom: 10),
+              padding: const EdgeInsets.all(35),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(200),
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(0, 0),
+                    color: successColor,
+                    blurRadius: 10.0,
+                  ),
+                ],
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Пожалуйста, введите пароль';
-                }
-                return null;
-              },
+              child: user,
             ),
-            ElevatedButton(
-              onPressed: _registerUser,
-              child: Text("Зарегистрироваться"),
-            ),
-            ElevatedButton(
-              onPressed: _signInUser,
-              child: Text("Войти"),
+            const InputForm(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Еще нет аккаунта?',
+                    style: TextStyle(color: secondTextColor),
+                  ),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, '/reg_page_screen');
+                    },
+                    child: const Text(
+                      'Регистрируйся',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
