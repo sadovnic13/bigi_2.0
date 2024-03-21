@@ -1,12 +1,17 @@
+import 'package:bigi/features/log_page/bloc/logpage_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
+import '../../../design/design.dart';
 import '../../../repositories/requests/requests.dart';
 import '../../features.dart';
 import '../../widgets_common/widgets_common.dart';
 
 class InputForm extends StatefulWidget {
-  const InputForm({super.key});
+  final LogpageBloc logpageBloc;
+  const InputForm({super.key, required this.logpageBloc});
+
   @override
   State<InputForm> createState() => _InputFormState();
 }
@@ -97,9 +102,38 @@ class _InputFormState extends State<InputForm> {
             ),
 
             // sign in button
-            FloatingButton(
-              label: "Войти",
-              onTap: _signInUser,
+
+            BlocBuilder<LogpageBloc, LogpageState>(
+              bloc: widget.logpageBloc,
+              builder: (context, state) {
+                if (state is LoginLoading) {
+                  return const FloatingButton(
+                    label: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: LoadCircular(
+                        color: backgroundColor,
+                      ),
+                    ),
+                    onTap: null,
+                  );
+                }
+
+                return FloatingButton(
+                  label: const Text(
+                    'Войти',
+                    style: TextStyle(
+                      color: backgroundColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSize20,
+                    ),
+                  ),
+                  onTap: () {
+                    widget.logpageBloc
+                        .add(SignInUser(email: _loginController.text, password: _passwordController.text));
+                  },
+                );
+              },
             ),
           ],
         ),

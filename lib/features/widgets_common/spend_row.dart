@@ -25,7 +25,7 @@ class SpendRow extends StatelessWidget {
                 SizedBox(
                   height: litleiconsize,
                   width: litleiconsize,
-                  child: categoryList!.firstWhere((element) => element.id == record.category).categotyIcon,
+                  child: categoryList.firstWhere((element) => element.id == record.category).categotyIcon,
                 ),
                 const SizedBox(
                   width: 15,
@@ -36,7 +36,7 @@ class SpendRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        categoryList!.firstWhere((element) => element.id == record.category).categoryName,
+                        categoryList.firstWhere((element) => element.id == record.category).categoryName,
                         // 'Cat',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

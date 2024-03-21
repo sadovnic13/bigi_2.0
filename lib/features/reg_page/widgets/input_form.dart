@@ -1,12 +1,16 @@
+import 'package:bigi/features/reg_page/bloc/regpage_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
+import '../../../design/design.dart';
 import '../../../repositories/requests/requests.dart';
 import '../../widgets_common/widgets_common.dart';
 import 'widgets.dart';
 
 class InputForm extends StatefulWidget {
-  const InputForm({super.key});
+  final RegpageBloc regpageBloc;
+  const InputForm({super.key, required this.regpageBloc});
   @override
   State<InputForm> createState() => _InputFormState();
 }
@@ -28,35 +32,9 @@ class _InputFormState extends State<InputForm> {
   Future<void> _registerUser() async {
     final email = _loginController.text;
     final password = _passwordController.text;
-    final repeatPassword = _repeatPasswordController.text;
+    final repeatedPassword = _repeatPasswordController.text;
     final SupabaseClient client = Supabase.instance.client;
     final CategoryRepository categoryRepository = CategoryRepository();
-
-    try {
-      if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email))
-        throw Exception("Неверный формат почты");
-      if (!RegExp(r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$").hasMatch(password))
-        throw Exception("Неверный формат пароля");
-      if (password != repeatPassword) throw Exception("Пароли не совпадают");
-
-      await client.auth.signUp(email: email, password: password);
-      await categoryRepository.defaultCategoryCreation();
-
-      print('Пользователь успешно зарегистрирован');
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/home_page_screen',
-        (route) => false,
-      );
-    } catch (e) {
-      // String error = e;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
-      print('Ошибка при регистрации: $e');
-    }
   }
 
   @override
@@ -98,9 +76,40 @@ class _InputFormState extends State<InputForm> {
             ),
 
             // sign in button
-            FloatingButton(
-              label: "Зарегестрироваться",
-              onTap: _registerUser,
+            BlocBuilder<RegpageBloc, RegpageState>(
+              bloc: widget.regpageBloc,
+              builder: (context, state) {
+                if (state is RegistrationLoading) {
+                  return const FloatingButton(
+                    label: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: LoadCircular(
+                        color: backgroundColor,
+                      ),
+                    ),
+                    onTap: null,
+                  );
+                }
+
+                return FloatingButton(
+                  label: const Text(
+                    'Зарегистрироваться',
+                    style: TextStyle(
+                      color: backgroundColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSize20,
+                    ),
+                  ),
+                  onTap: () {
+                    widget.regpageBloc.add(SignUpUser(
+                      email: _loginController.text,
+                      password: _passwordController.text,
+                      repeatedPassword: _repeatPasswordController.text,
+                    ));
+                  },
+                );
+              },
             ),
           ],
         ),
