@@ -1,8 +1,8 @@
-import 'package:bigi/features/widgets_common/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../design/design.dart';
+import '../widgets_common.dart';
 
 class AdditionForm extends StatefulWidget {
   const AdditionForm({super.key});
@@ -20,10 +20,17 @@ class _AdditionFormState extends State<AdditionForm> {
       decoration: const BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 0),
+            color: successColor,
+            blurRadius: 10.0,
+          ),
+        ],
         border: Border(
-          left: BorderSide(color: floatingColor, width: 2),
-          top: BorderSide(color: floatingColor, width: 2),
-          right: BorderSide(color: floatingColor, width: 2),
+          // left: BorderSide(color: floatingColor, width: 1),
+          top: BorderSide(color: floatingColor, width: 1),
+          // right: BorderSide(color: floatingColor, width: 1),
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),

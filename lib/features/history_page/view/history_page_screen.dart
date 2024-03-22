@@ -41,7 +41,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        Navigator.of(context).pushReplacementNamed('/');
+        Navigator.of(context).pushReplacementNamed('/home_page_screen');
       },
       child: Scaffold(
         appBar: AppBar(

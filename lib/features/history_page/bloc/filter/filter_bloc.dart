@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../repositories/repositories.dart';
@@ -16,6 +15,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
             : await historyRepository.getHistoryList();
         emit(FilterLoaded(historyRecords: historyRecords));
       } catch (e) {
+        print(e);
+
         emit(FilterFailure(exception: e));
       }
     });

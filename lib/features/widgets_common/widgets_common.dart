@@ -4,3 +4,4 @@ export 'failure_message.dart';
 export 'side_menu.dart';
 export 'empty_history.dart';
 export 'bottom_sheet/bottom_sheet.dart';
+export 'floating_button.dart';

@@ -1,7 +1,7 @@
-import 'package:bigi/router/router.dart';
-import 'package:bigi/theme/theme.dart';
 import 'package:flutter/material.dart';
 
+import 'router/router.dart';
+import 'theme/theme.dart';
 
 class BigiApp extends StatelessWidget {
   const BigiApp({super.key});
@@ -12,6 +12,8 @@ class BigiApp extends StatelessWidget {
       theme: darkTheme,
       debugShowCheckedModeBanner: false,
       routes: routes,
+      // initialRoute: '/home_page_screen',
+      initialRoute: '/log_page_screen',
     );
   }
 }
