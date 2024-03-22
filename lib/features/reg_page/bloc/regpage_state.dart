@@ -1,20 +1,27 @@
 part of 'regpage_bloc.dart';
 
-sealed class RegpageState extends Equatable {
-  const RegpageState();
+sealed class RegpageState extends Equatable {}
 
+class RegistrationInitial extends RegpageState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class RegistrationInitial extends RegpageState {}
+class RegistrationLoading extends RegpageState {
+  @override
+  List<Object?> get props => [];
+}
 
-final class RegistrationLoading extends RegpageState {}
+class RegistrationSuccess extends RegpageState {
+  @override
+  List<Object?> get props => [];
+}
 
-final class RegistrationSuccess extends RegpageState {}
-
-final class RegistrationFailure extends RegpageState {
-  const RegistrationFailure({required this.exception});
+class RegistrationFailure extends RegpageState {
+  RegistrationFailure({required this.exception});
 
   final Object? exception;
+
+  @override
+  List<Object?> get props => [exception];
 }

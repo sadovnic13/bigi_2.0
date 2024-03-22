@@ -1,5 +1,8 @@
 part of 'billpage_bloc.dart';
 
-class BillpageEvent {}
+abstract class BillpageEvent extends Equatable {}
 
-class LoadBillData extends BillpageEvent {}
+class LoadBillData extends BillpageEvent {
+  @override
+  List<Object?> get props => [];
+}

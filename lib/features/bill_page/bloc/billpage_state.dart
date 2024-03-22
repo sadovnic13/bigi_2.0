@@ -1,10 +1,16 @@
 part of 'billpage_bloc.dart';
 
-class BillpageState {}
+abstract class BillpageState extends Equatable {}
 
-class BillpageInitial extends BillpageState {}
+class BillpageInitial extends BillpageState {
+  @override
+  List<Object?> get props => [];
+}
 
-class BillpageLoading extends BillpageState {}
+class BillpageLoading extends BillpageState {
+  @override
+  List<Object?> get props => [];
+}
 
 class BillpageLoaded extends BillpageState {
   BillpageLoaded({
@@ -14,6 +20,9 @@ class BillpageLoaded extends BillpageState {
 
   final MoneyBill bill;
   final List<HistoryRecord> billHistoryRecords;
+
+  @override
+  List<Object?> get props => [bill, billHistoryRecords];
 }
 
 class BillpageFailure extends BillpageState {
@@ -22,4 +31,7 @@ class BillpageFailure extends BillpageState {
   });
 
   final Object? exception;
+
+  @override
+  List<Object?> get props => [exception];
 }

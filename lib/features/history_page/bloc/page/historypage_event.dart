@@ -1,5 +1,8 @@
 part of 'historypage_bloc.dart';
 
-class HistorypageEvent {}
+abstract class HistorypageEvent extends Equatable {}
 
-class LoadBills extends HistorypageEvent {}
+class LoadBills extends HistorypageEvent {
+  @override
+  List<Object?> get props => [];
+}
