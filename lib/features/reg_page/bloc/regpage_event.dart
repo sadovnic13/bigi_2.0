@@ -1,9 +1,6 @@
 part of 'regpage_bloc.dart';
 
-abstract class RegpageEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+abstract class RegpageEvent extends Equatable {}
 
 class SignUpUser extends RegpageEvent {
   SignUpUser({
@@ -15,4 +12,7 @@ class SignUpUser extends RegpageEvent {
   final String email;
   final String password;
   final String repeatedPassword;
+
+  @override
+  List<Object?> get props => [email, password, repeatedPassword];
 }

@@ -1,10 +1,16 @@
 part of 'historypage_bloc.dart';
 
-class HistorypageState {}
+abstract class HistorypageState extends Equatable {}
 
-class HistorypageInitial extends HistorypageState {}
+class HistorypageInitial extends HistorypageState {
+  @override
+  List<Object?> get props => [];
+}
 
-class HistorypageLoading extends HistorypageState {}
+class HistorypageLoading extends HistorypageState {
+  @override
+  List<Object?> get props => [];
+}
 
 class HistorypageLoaded extends HistorypageState {
   HistorypageLoaded({
@@ -14,6 +20,9 @@ class HistorypageLoaded extends HistorypageState {
 
   final List<MoneyBill> billsList;
   final List<HistoryRecord> historyRecords;
+
+  @override
+  List<Object?> get props => [billsList, historyRecords];
 }
 
 class HistorypageFailure extends HistorypageState {
@@ -22,12 +31,7 @@ class HistorypageFailure extends HistorypageState {
   });
 
   final Object? exception;
-}
 
-class HistorypageFiltring extends HistorypageState {
-  HistorypageFiltring({
-    required this.historyRecords,
-  });
-
-  final List<HistoryRecord> historyRecords;
+  @override
+  List<Object?> get props => [exception];
 }

@@ -1,18 +1,27 @@
 part of 'logpage_bloc.dart';
 
-abstract class LogpageState extends Equatable {
+abstract class LogpageState extends Equatable {}
+
+class LoginInitial extends LogpageState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class LoginInitial extends LogpageState {}
+class LoginLoading extends LogpageState {
+  @override
+  List<Object?> get props => [];
+}
 
-class LoginLoading extends LogpageState {}
-
-class LoginSuccess extends LogpageState {}
+class LoginSuccess extends LogpageState {
+  @override
+  List<Object?> get props => [];
+}
 
 class LoginFailure extends LogpageState {
   LoginFailure({required this.exception});
 
   final Object? exception;
+
+  @override
+  List<Object?> get props => [exception];
 }

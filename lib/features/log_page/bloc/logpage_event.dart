@@ -1,9 +1,6 @@
 part of 'logpage_bloc.dart';
 
-abstract class LogpageEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+abstract class LogpageEvent extends Equatable {}
 
 class SignInUser extends LogpageEvent {
   SignInUser({
@@ -13,4 +10,7 @@ class SignInUser extends LogpageEvent {
 
   final String email;
   final String password;
+
+  @override
+  List<Object?> get props => [email, password];
 }

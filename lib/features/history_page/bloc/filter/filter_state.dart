@@ -1,10 +1,16 @@
 part of 'filter_bloc.dart';
 
-class FilterState {}
+abstract class FilterState extends Equatable {}
 
-class FilterInitial extends FilterState {}
+class FilterInitial extends FilterState {
+  @override
+  List<Object?> get props => [];
+}
 
-class FilterLoading extends FilterState {}
+class FilterLoading extends FilterState {
+  @override
+  List<Object?> get props => [];
+}
 
 class FilterLoaded extends FilterState {
   FilterLoaded({
@@ -12,10 +18,16 @@ class FilterLoaded extends FilterState {
   });
 
   final List<HistoryRecord> historyRecords;
+
+  @override
+  List<Object?> get props => [historyRecords];
 }
 
 class FilterFailure extends FilterState {
   FilterFailure({required this.exception});
 
   final Object? exception;
+
+  @override
+  List<Object?> get props => [exception];
 }
