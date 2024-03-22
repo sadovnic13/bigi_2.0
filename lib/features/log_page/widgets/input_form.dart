@@ -1,12 +1,10 @@
-import 'package:bigi/features/log_page/bloc/logpage_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
 import '../../../design/design.dart';
-import '../../../repositories/requests/requests.dart';
 import '../../features.dart';
 import '../../widgets_common/widgets_common.dart';
+import '../bloc/logpage_bloc.dart';
 
 class InputForm extends StatefulWidget {
   final LogpageBloc logpageBloc;
@@ -17,7 +15,6 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -26,32 +23,6 @@ class _InputFormState extends State<InputForm> {
     _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  Future<void> _signInUser() async {
-    final email = _loginController.text;
-    final password = _passwordController.text;
-    final SupabaseClient client = Supabase.instance.client;
-    final CategoryRepository categoryRepository = CategoryRepository();
-
-    try {
-      await client.auth.signInWithPassword(email: email, password: password);
-      categoryList = await categoryRepository.getCategoryList();
-      debugPrint(categoryList.toString());
-      print('Пользователь успешно вошел в систему');
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/home_page_screen',
-        (route) => false,
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
-      print('Ошибка при входе: $e');
-    }
   }
 
   @override

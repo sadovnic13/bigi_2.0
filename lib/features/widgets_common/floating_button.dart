@@ -19,16 +19,7 @@ class FloatingButton extends StatelessWidget {
           color: floatingColor,
           borderRadius: BorderRadius.circular(35),
         ),
-        child: Center(child: label
-            // Text(
-            //   label,
-            //   style: const TextStyle(
-            //     color: backgroundColor,
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: fontSize20,
-            //   ),
-            // ),
-            ),
+        child: Center(child: label),
       ),
     );
   }

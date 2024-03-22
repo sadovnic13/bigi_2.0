@@ -1,8 +1,8 @@
-import 'package:bigi/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../design/design.dart';
+import '../../../repositories/repositories.dart';
 import '../bloc/regpage_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -42,58 +42,60 @@ class _RegPageScreenState extends State<RegPageScreen> {
           }
         },
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 150,
-                width: 150,
-                margin: const EdgeInsets.only(top: 25, bottom: 10),
-                padding: const EdgeInsets.all(35),
-                decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: BorderRadius.circular(75),
-                  boxShadow: const [
-                    BoxShadow(
-                      offset: Offset(0, 0),
-                      color: successColor,
-                      blurRadius: 10.0,
-                    ),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 150,
+                  width: 150,
+                  margin: const EdgeInsets.only(top: 25, bottom: 10),
+                  padding: const EdgeInsets.all(35),
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.circular(75),
+                    boxShadow: const [
+                      BoxShadow(
+                        offset: Offset(0, 0),
+                        color: successColor,
+                        blurRadius: 10.0,
+                      ),
+                    ],
+                  ),
+                  child: user_add,
                 ),
-                child: user_add,
-              ),
-              InputForm(
-                regpageBloc: regpageBloc,
-              ),
+                InputForm(
+                  regpageBloc: regpageBloc,
+                ),
 
-              // not a member? register now
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Уже есть аккаунт?',
-                      style: TextStyle(color: secondTextColor),
-                    ),
-                    const SizedBox(width: 4),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/log_page_screen');
-                      },
-                      child: const Text(
-                        'Авторизуйся',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                // not a member? register now
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Уже есть аккаунт?',
+                        style: TextStyle(color: secondTextColor),
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, '/log_page_screen');
+                        },
+                        child: const Text(
+                          'Авторизуйся',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

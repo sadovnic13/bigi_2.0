@@ -1,5 +1,6 @@
-import 'package:bigi/design/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../design/design.dart';
 
 class DataTextField extends StatelessWidget {
   final controller;

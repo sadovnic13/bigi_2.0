@@ -1,9 +1,9 @@
-import 'package:bigi/repositories/repositories.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../repositories/repositories.dart';
 import '../../features.dart';
 
 part 'logpage_event.dart';

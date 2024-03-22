@@ -1,7 +1,8 @@
-import 'package:bigi/repositories/repositories.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
+
+import '../../../repositories/repositories.dart';
 
 part 'regpage_event.dart';
 part 'regpage_state.dart';
@@ -22,19 +23,7 @@ class RegpageBloc extends Bloc<RegpageEvent, RegpageState> {
         await Supabase.instance.client.auth.signUp(email: event.email, password: event.password);
         await categoryRepository.defaultCategoryCreation();
         emit(RegistrationSuccess());
-        // print('Пользователь успешно зарегистрирован');
-        // Navigator.pushNamedAndRemoveUntil(
-        //   context,
-        //   '/home_page_screen',
-        //   (route) => false,
-        // );
       } catch (e) {
-        // // String error = e;
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(
-        //     content: Text(e.toString()),
-        //   ),
-        // );
         emit(RegistrationFailure(exception: e));
       }
     });
