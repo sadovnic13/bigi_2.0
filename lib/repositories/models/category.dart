@@ -8,8 +8,8 @@ class Category {
     required this.isProfit,
   });
 
-  int id;
-  SvgPicture categotyIcon;
-  String categoryName;
-  bool isProfit;
+  final int id;
+  final SvgPicture categotyIcon;
+  final String categoryName;
+  final bool isProfit;
 }
